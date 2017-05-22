@@ -1,0 +1,121 @@
+// BUT gerer les verbes demandé et les attribués à leurs groupe conjugué 
+// ENTREE les Verbes dans les fichiers 
+// SORTIE les Verbes des fichiers conjugués 
+
+program FICHIER_CONJUGAISON 
+
+CONSTANTE
+	GROUPE_1 <- 'er' 
+	EXEPTION <- 'aller'
+	GROUPE_2 <-'ir'
+	PRONOM <- 6 
+
+
+procedure creat_Verbe (f:fichiertext)
+
+debut
+	assigner ('verbe.txt')
+	réecrire (f)
+	//ecris tout les verbes dans le fichier txt 
+	debut 
+		ECRIRE (f,rire)
+		ECRIRE (f,recevoir)
+		ECRIRE (f,aller)
+		ECRIRE (f,bouillir)
+		ECRIRE (f,envoyer)
+		ECRIRE (f,peindre)
+		ECRIRE (f,habiter)
+		ECRIRE (f,paer)
+		ECRIRE (f,mourir)
+		ECRIRE (f,hair)
+		ECRIRE (f,vouloir)
+		ECRIRE (f,finr)
+	fin si 
+fin procedure
+ 
+//creation 2eme fichier 
+procedure crea_fichier2 (var g : fichiertext)
+debut 
+assigner (g,'conjugasion.txt')
+fin procedure 
+
+// affichage du fichier avec tout les verbes 
+procedure afficha_Verbes (var f: fichiertext)
+
+var 
+	lines : chaine 
+debut 
+	Réinitialiser (f)
+// tant que min fichier n'est pas terminé, il lit la ligne du fichier et l'affiche 
+	tant que pas FIN DU FICHIER (f) faire 
+		lire (f,lines)
+// ecrire les verbes par lignes 
+		ECRIRE (lines)
+	fin tant que 
+fermer (f) 
+fin procedure 
+
+// verification des groupe de verbe 
+procedure verif_verb (var f : fichiertext)
+
+var 
+	i : ENTIER 
+	lines : CHAINE 
+debut 
+	reinitialiser (f)
+	tant que pas FIN DU FICHIER (f) faire 
+	Lire (f,lines)
+	// extraire et verifier les deux derniere lettre du verbe pour savoir le groupe
+	si (EXTRAIRE(lines,longueur(lines)-1,2) = GROUPE_1 ) et pas (lines = EXEPTION ) alors
+		ECRIRE (lines&" 1er groupe)
+		sinon si (EXTRAIRE(lines,longueur(lines)-1,2) = GROUPE_2 ) et (lines = "hair") ou (lines ="finir") alors 
+			ECRIRE (lines,&" 2 eme groupe")
+			sinon
+				ECRIRE (lines,&" 3 eme groupe")
+			fin sinon
+		fin sinon si 
+	fin si
+fin procedure 
+
+// conjuguer les verbes et leurs exeption 
+procedure conjugaison ( var f,g: fichiertext )
+
+var 
+	i : ENTIER 
+	stock : CHAINE 
+	lines : CHAINE 
+	radical : CHAINE 
+debut 
+	Reinitialiser (f)
+	tant que pas FIN DU FICHIER (f) faire 
+		LIRE (f,lines)
+		pour i de 1 jusqu'a PRONOM faire
+			// on prend le mot sans la terminaison 
+			radical <- EXTRAIRE(lines,1,longueur(lines)-2)
+			si (EXTRAIRE(lines,longueur(lines)-1,2) = GROUPE_1 ) et pas (lines = EXEPTION ) alors
+				sotck <-(lines)
+				// ou ectrait tout les ecpressions 
+				cas stock parmis 
+				(Extraire(lines 1,1)) = ("h") ou ("a") our ("e") ou ("i") ou ("o") ou ("u") : 
+					ECRIRE (g&"j' "+radical+&"e")
+				fin cas parmis 
+			fin si 
+			fermer (f)
+		fin pour 
+	fin tant que 
+fin procedure
+
+// program principal 
+
+var 
+	f : fichiertext 
+begin 
+	// apl des procedure
+		creat_verbe(f)
+		creat_fichier(g)
+		affiichage_Verbes(f)
+		verif_verb(f)
+fin. 
+	
+
+	
